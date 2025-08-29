@@ -1,13 +1,21 @@
 package com.practice.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.practice.demo.models.CountryList;
+import com.practice.demo.services.CountryService;
 
 @SpringBootApplication
 @RestController
 public class Main {
+
+	@Autowired
+	CountryService countryService;
 
 	@GetMapping("/")
 	public String index() {
@@ -15,8 +23,12 @@ public class Main {
 		return "Hello world!";
 	}
 
+	@GetMapping("/country-info")
+	public ResponseEntity<CountryList> getCountryInfoList() {
+		return countryService.getCountryList();
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
 	}
-
 }

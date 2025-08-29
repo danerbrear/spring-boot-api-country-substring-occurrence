@@ -11,7 +11,7 @@ public class Country {
     }
 
     @Getter
-    class Name {
+    public static class Name {
         private String common;
         private String official;
 

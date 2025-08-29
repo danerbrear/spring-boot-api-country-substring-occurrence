@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practice.demo.models.CountryList;
+import com.practice.demo.models.Country;
 import com.practice.demo.services.CountryService;
 
 @SpringBootApplication
@@ -24,7 +24,7 @@ public class Main {
 	}
 
 	@GetMapping("/country-info")
-	public ResponseEntity<CountryList> getCountryInfoList() {
+	public ResponseEntity<Country[]> getCountryInfoList() {
 		return countryService.getCountryList();
 	}
 

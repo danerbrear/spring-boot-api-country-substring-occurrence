@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.practice.demo.models.CountryList;
+import com.practice.demo.models.Country;
 
 @Service
 public class CountryService {
@@ -16,9 +16,9 @@ public class CountryService {
         this.restTemplate = restTemplate;
     }
 
-    public ResponseEntity<CountryList> getCountryList() {
+    public ResponseEntity<Country[]> getCountryList() {
         System.out.println("Getting country info...");
-        ResponseEntity<CountryList> response = this.restTemplate.getForEntity(getUrl(), CountryList.class);
+        ResponseEntity<Country[]> response = this.restTemplate.getForEntity(getUrl(), Country[].class);
         return response;
     }
 

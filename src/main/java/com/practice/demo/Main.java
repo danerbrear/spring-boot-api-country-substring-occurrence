@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practice.demo.models.Country;
+import com.practice.demo.models.CountryOccurrences;
 import com.practice.demo.services.CountryService;
 
 @SpringBootApplication
@@ -27,7 +28,7 @@ public class Main {
 	}
 
 	@GetMapping("/country-info")
-	public ResponseEntity<Country[]> getCountryInfoList(@RequestParam String input) {
+	public ResponseEntity<CountryOccurrences[]> getCountryInfoList(@RequestParam String input) {
 		return countryService.getCountryList(input);
 	}
 

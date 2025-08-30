@@ -1,14 +1,17 @@
 package com.practice.demo.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.practice.demo.models.Country;
+import com.practice.demo.models.CountryOccurrences;
 
 @Service
 public class CountryService {
@@ -22,7 +25,7 @@ public class CountryService {
         this.processor = processor;
     }
 
-    public ResponseEntity<Country[]> getCountryList(String input) {
+    public ResponseEntity<CountryOccurrences[]> getCountryList(String input) {
         System.out.println("Getting country info...");
         ResponseEntity<Country[]> response = this.restTemplate.getForEntity(getUrl(), Country[].class);
 
@@ -35,7 +38,13 @@ public class CountryService {
 
         System.out.println("Finished processing.");
 
-        return response;
+        CountryOccurrences[] countryOccurrencesArr = this.processor.getCountryOccurrencesArr().toArray(new CountryOccurrences[0]);
+
+        Arrays.sort(countryOccurrencesArr);
+
+        ResponseEntity<CountryOccurrences[]> result = new ResponseEntity<CountryOccurrences[]>(countryOccurrencesArr, HttpStatusCode.valueOf(200));
+
+        return result;
     }
 
     private String getUrl() {

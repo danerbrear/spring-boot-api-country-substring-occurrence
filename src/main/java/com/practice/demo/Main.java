@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practice.demo.models.Country;
@@ -26,8 +27,8 @@ public class Main {
 	}
 
 	@GetMapping("/country-info")
-	public ResponseEntity<Country[]> getCountryInfoList() {
-		return countryService.getCountryList();
+	public ResponseEntity<Country[]> getCountryInfoList(@RequestParam String input) {
+		return countryService.getCountryList(input);
 	}
 
 	public static void main(String[] args) {

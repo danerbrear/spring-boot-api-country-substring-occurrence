@@ -22,13 +22,13 @@ public class CountryService {
         this.processor = processor;
     }
 
-    public ResponseEntity<Country[]> getCountryList() {
+    public ResponseEntity<Country[]> getCountryList(String input) {
         System.out.println("Getting country info...");
         ResponseEntity<Country[]> response = this.restTemplate.getForEntity(getUrl(), Country[].class);
 
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         for (Country country : response.getBody()) {
-            futures.add(this.processor.processCountry(country));
+            futures.add(this.processor.processCountry(country, input));
         }
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();

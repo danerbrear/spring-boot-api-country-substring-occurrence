@@ -6,11 +6,14 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.practice.demo.models.Country;
+import com.practice.demo.models.Country.Name;
 import com.practice.demo.models.CountryOccurrences;
 
 public class CountryProcessingServiceTest {
@@ -38,6 +41,16 @@ public class CountryProcessingServiceTest {
         Collections.sort(expected);
 
         assertEquals(expected, result, "Lists of country occurrences should be equal.");
+    }
+
+    @Test
+    public void testProcessCountry() {
+        Country test = new Country(new Name("Saint Helena, Ascension and Tristan da Cunha", null));
+        CompletableFuture<Void> result = this.service.processCountry(test, "un");
+        CompletableFuture.allOf(result).join();
+
+        assertEquals(this.service.getCountryMap().get(test.getName().getCommon()), 1,
+                "Count of occurrences should match.");
     }
 
     private ConcurrentHashMap<String, Integer> createTestCountryMap() {

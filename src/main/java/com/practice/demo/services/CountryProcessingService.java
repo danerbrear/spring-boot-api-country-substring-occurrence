@@ -13,9 +13,12 @@ import org.springframework.stereotype.Service;
 import com.practice.demo.models.Country;
 import com.practice.demo.models.CountryOccurrences;
 
+import lombok.Getter;
+
 @Service
 public class CountryProcessingService {
 
+    @Getter
     // K: Country V: Count of letter occurrance
     private ConcurrentHashMap<String, Integer> countryMap;
 
@@ -33,16 +36,10 @@ public class CountryProcessingService {
         int index = 0;
         while (name.toLowerCase().indexOf(input.toLowerCase(), index) != -1) {
             count++;
-            index += input.length();
+            index += name.toLowerCase().indexOf(input.toLowerCase(), index) + input.length();
         }
 
         countryMap.put(name, count);
-
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         System.out.printf("Occurences of %s in %s is %d\n", input, name, count);
 

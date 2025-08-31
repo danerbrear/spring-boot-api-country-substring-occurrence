@@ -1,6 +1,7 @@
 package com.practice.demo.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -58,6 +59,8 @@ public class CountryProcessingService {
                 countryList.add(new CountryOccurrences(key, val));
             }
         }
+
+        Collections.sort(countryList);
 
         return countryList;
     }

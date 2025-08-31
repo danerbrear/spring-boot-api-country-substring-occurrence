@@ -1,7 +1,6 @@
 package com.practice.demo.services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -38,11 +37,11 @@ public class CountryService {
 
         System.out.println("Finished processing.");
 
-        CountryOccurrences[] countryOccurrencesArr = this.processor.getCountryOccurrencesArr().toArray(new CountryOccurrences[0]);
+        CountryOccurrences[] countryOccurrencesArr = this.processor.getCountryOccurrencesArr()
+                .toArray(new CountryOccurrences[0]);
 
-        Arrays.sort(countryOccurrencesArr);
-
-        ResponseEntity<CountryOccurrences[]> result = new ResponseEntity<CountryOccurrences[]>(countryOccurrencesArr, HttpStatusCode.valueOf(200));
+        ResponseEntity<CountryOccurrences[]> result = new ResponseEntity<CountryOccurrences[]>(countryOccurrencesArr,
+                HttpStatusCode.valueOf(200));
 
         return result;
     }
